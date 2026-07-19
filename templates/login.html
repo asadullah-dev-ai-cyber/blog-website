@@ -1,0 +1,40 @@
+{% extends 'bootstrap/base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block content %}
+{% include "header.html" %}
+
+<!-- Modern Auth Header -->
+<header class="intro-header" style="background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1920&q=80](https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1920&q=80)')">
+    <div class="overlay" style="background-color: rgba(15, 23, 42, 0.7);"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="page-heading" style="padding: 100px 0 80px 0;">
+                    <h1 style="font-weight: 800; letter-spacing: -1px; color: white;">Welcome</h1>
+                    <span class="subheading" style="font-weight: 300; opacity: 0.9; font-size: 1.2rem; color: white;">Secure portal gateway.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto content">
+        <!-- ADD THIS BLOCK FOR FLASH MESSAGES -->
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            {% for message in messages %}
+              <p style="color: red; font-weight: bold;">{{ message }}</p>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+        {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}
+      </div>
+    </div>
+  </div>
+
+
+{% include "footer.html" %}
+{% endblock %}

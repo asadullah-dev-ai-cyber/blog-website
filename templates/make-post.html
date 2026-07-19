@@ -1,0 +1,33 @@
+{% extends 'bootstrap/base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block content %}
+{% include "header.html" %}
+  <!-- Page Header -->
+ <!-- Modern Create Post Header -->
+<header class="intro-header" style="background-image: url('https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=1920&q=80](https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=1920&q=80)')">
+    <div class="overlay" style="background-color: rgba(15, 23, 42, 0.65);"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="page-heading" style="padding: 100px 0 80px 0;">
+                    <h1 style="font-weight: 800; letter-spacing: -1px; color: white;">Editor Workspace</h1>
+                    <span class="subheading" style="font-weight: 300; opacity: 0.9; font-size: 1.2rem; color: white;">Drafting a masterpiece.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        {{ ckeditor.load() }}
+        {{ ckeditor.config(name='body') }}
+        {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}
+      </div>
+    </div>
+  </div>
+
+{% include "footer.html" %}
+{% endblock %}
