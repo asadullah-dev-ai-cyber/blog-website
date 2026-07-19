@@ -39,3 +39,4 @@ flask-login
 flask-bootstrap
 flask-wtf
 email-validator
+flask-gravatar
