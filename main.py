@@ -8,6 +8,15 @@ from sqlalchemy.orm import relationship
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
 from functools import wraps
+import os
+
+
+
+db_url = os.environ.get("DATABASE_URL", "sqlite:///blog.db")
+
+# PostgreSQL fix: Render sometimes uses 'postgres://', but SQLAlchemy 1.4+ requires 'postgresql://'
+if db_url.startswith("postgres://"):
+    db_url = db_url.replace("postgres://", "postgresql://", 1)
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
@@ -15,7 +24,7 @@ ckeditor = CKEditor(app)
 Bootstrap(app)
 
 ##CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = db_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -75,6 +84,8 @@ class Comment(db.Model):
     post_id = db.Column(db.Integer, db.ForeignKey("blog_posts.id"))
     parent_post = relationship("BlogPost", back_populates="comments")
 
+with app.app_context():
+    db.create_all()
 
 @app.route('/')
 def get_all_posts():
@@ -211,7 +222,5 @@ def delete_post(post_id):
 
 
 if __name__ == "__main__":
-    # FIX: Moving db.create_all() inside app context manager loops at startup
-    with app.app_context():
-        db.create_all()
+
     app.run(debug=True)
