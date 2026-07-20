@@ -1,34 +1,42 @@
-{% extends 'bootstrap/base.html' %}
-{% import "bootstrap/wtf.html" as wtf %}
-
-{% block content %}
 {% include "header.html" %}
 
-  <!-- Page Header -->
-<!-- Modern Auth Header -->
-<header class="intro-header" style="background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1920&q=80](https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1920&q=80)')">
-    <div class="overlay" style="background-color: rgba(15, 23, 42, 0.7);"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-md-10 mx-auto">
-                <div class="page-heading" style="padding: 100px 0 80px 0;">
-                    <h1 style="font-weight: 800; letter-spacing: -1px; color: white;">Welcome</h1>
-                    <span class="subheading" style="font-weight: 300; opacity: 0.9; font-size: 1.2rem; color: white;">Secure portal gateway.</span>
-                </div>
-            </div>
-        </div>
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 85vh; padding-top: 100px; padding-bottom: 50px;">
+  <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 w-100" style="max-width: 480px; background: #ffffff; border: 1px solid rgba(0,0,0,0.03) !important;">
+
+    <!-- Header -->
+    <div class="text-center mb-4">
+      <h2 class="fw-bold text-dark mb-2">Create Account</h2>
+      <p class="text-secondary small mb-0">Join the platform to start sharing insights and leaving comments.</p>
     </div>
-</header>
 
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-md-10 mx-auto">
-       
-       {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}
+    <!-- Flash Messages Interface -->
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-danger rounded-3 py-2 px-3 small border-0 mb-3" role="alert">
+            <i class="fas fa-exclamation-circle me-2"></i>{{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
 
+    <!-- WTForms Integration -->
+    {% import "bootstrap/wtf.html" as wtf %}
+    <form method="POST" action="{{ url_for('register') }}" novalidate>
+      {{ form.csrf_token }}
+      <div class="mb-3 custom-wtf-form">
+        {{ wtf.quick_form(form, button_map={'submit': 'btn btn-dark btn-lg w-100 rounded-pill shadow-sm fw-semibold py-2 mt-2'}) }}
       </div>
+    </form>
+
+    <!-- Footer Redirect -->
+    <div class="text-center mt-4 pt-3 border-top">
+      <p class="text-secondary small mb-0">Already have an account?
+        <a href="{{ url_for('login') }}" class="text-dark fw-semibold text-decoration-none">Sign in</a>
+      </p>
     </div>
+
   </div>
+</div>
 
 {% include "footer.html" %}
-{% endblock %}

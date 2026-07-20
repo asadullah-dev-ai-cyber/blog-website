@@ -1,33 +1,42 @@
-{% extends 'bootstrap/base.html' %}
-{% import "bootstrap/wtf.html" as wtf %}
-
-{% block content %}
 {% include "header.html" %}
-  <!-- Page Header -->
- <!-- Modern Create Post Header -->
-<header class="intro-header" style="background-image: url('https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=1920&q=80](https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=1920&q=80)')">
-    <div class="overlay" style="background-color: rgba(15, 23, 42, 0.65);"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-md-10 mx-auto">
-                <div class="page-heading" style="padding: 100px 0 80px 0;">
-                    <h1 style="font-weight: 800; letter-spacing: -1px; color: white;">Editor Workspace</h1>
-                    <span class="subheading" style="font-weight: 300; opacity: 0.9; font-size: 1.2rem; color: white;">Drafting a masterpiece.</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
 
+<!-- Workspace Header Banner -->
+<header class="masthead" style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); padding: 120px 0 60px 0;">
   <div class="container">
     <div class="row">
-      <div class="col-lg-8 col-md-10 mx-auto">
-        {{ ckeditor.load() }}
-        {{ ckeditor.config(name='body') }}
-        {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}
+      <div class="col-lg-10 mx-auto text-white">
+        <span class="badge bg-warning text-dark rounded-pill px-3 py-2 mb-2 text-uppercase fw-bold" style="letter-spacing: 0.5px;">Admin Console</span>
+        <h1 class="fw-bold display-5">Post Editor</h1>
+        <p class="text-secondary mb-0">Draft or modify your dynamic blog content blocks seamlessly.</p>
       </div>
     </div>
   </div>
+</header>
+
+<!-- Main Editor Workspace Layout -->
+<div class="container my-5">
+  <div class="row">
+    <div class="col-lg-10 mx-auto">
+      <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 bg-white">
+
+        <!-- Native CKEditor Script Configuration Setup Requirements -->
+        {{ ckeditor.load() }}
+        {{ ckeditor.config(name='body') }}
+
+        <!-- WTForms Intake Layer Execution Context -->
+        {% import "bootstrap/wtf.html" as wtf %}
+        <form method="POST" novalidate>
+          {{ form.csrf_token }}
+          <div class="mb-3 custom-editor-form">
+            {{ wtf.quick_form(form, button_map={'submit': 'btn btn-dark btn-lg px-5 rounded-pill shadow-sm fw-semibold mt-4'}) }}
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="border-light my-0">
 
 {% include "footer.html" %}
-{% endblock %}

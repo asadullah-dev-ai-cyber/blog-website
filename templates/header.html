@@ -2,116 +2,107 @@
 <html lang="en">
 
 <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Asadullah's Blog</title>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+  <!-- Global Fonts & Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <title>Asadullah's Blog</title>
+  <!-- Core Bootstrap 5 CSS Framework -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Bootstrap core CSS -->
-    <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-
-    <!-- Custom fonts for this template -->
-    <link href="{{ url_for('static', filename='vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet"
-          type="text/css">
-    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet'
-          type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
-          rel='stylesheet' type='text/css'>
-
-    <!-- Custom styles for this template -->
-    <link href="{{ url_for('static', filename='css/clean-blog.min.css')}}" rel="stylesheet">
-    <!-- Modern Google Font -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-<style>
-        /* --- Ultra Modern Global Button Styles --- */
-        .btn,
-        .btn-primary,
-        input[type="submit"],
-        button[type="submit"] {
-            background: linear-gradient(135deg, #4f46e5 0%, #2563eb 100%) !important;
-            color: #ffffff !important;
-            font-family: 'Inter', sans-serif !important;
-            font-weight: 600 !important;
-            font-size: 0.95rem !important;
-            padding: 12px 28px !important;
-            border-radius: 14px !important;
-            border: none !important;
-            box-shadow: 0 4px 14px 0 rgba(79, 70, 229, 0.35) !important;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
-            cursor: pointer !important;
-            display: inline-flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            letter-spacing: -0.1px !important;
-            text-transform: none !important;
-        }
-
-        .btn:hover,
-        .btn-primary:hover,
-        input[type="submit"]:hover,
-        button[type="submit"]:hover {
-            transform: translateY(-3px) !important;
-            box-shadow: 0 8px 24px 0 rgba(79, 70, 229, 0.5) !important;
-            opacity: 0.95 !important;
-            color: #ffffff !important;
-        }
-
-        .btn:active,
-        .btn-primary:active,
-        input[type="submit"]:active,
-        button[type="submit"]:active {
-            transform: translateY(1px) !important;
-            box-shadow: 0 2px 8px 0 rgba(79, 70, 229, 0.4) !important;
-        }
-    </style>
+  <!-- Application Custom Global Overrides -->
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #f8fafc;
+      color: #0f172a;
+    }
+    .navbar-modern {
+      background: rgba(255, 255, 255, 0.8) !important;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+    }
+    .nav-link-modern {
+      font-weight: 500;
+      color: #334155 !important;
+      font-size: 0.95rem;
+      padding: 0.5rem 1rem !important;
+      transition: color 0.2s ease;
+    }
+    .nav-link-modern:hover {
+      color: #0f172a !important;
+    }
+    .masthead {
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    .form-control {
+  font-size: 1rem !important;
+  padding: 0.6rem 0.75rem !important;
+  border-radius: 8px !important;
+  border: 1px solid #e2e8f0 !important;
+  background-color: #f8fafc !important;
+  box-shadow: none !important;
+  transition: border-color 0.2s ease, background-color 0.2s ease !important;
+}
+.form-control:focus {
+  border-color: #94a3b8 !important;
+  background-color: #ffffff !important;
+}
+.form-label {
+  font-weight: 600 !important;
+  color: #475569 !important;
+  font-size: 0.85rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  margin-bottom: 0.4rem !important;
+}
+  </style>
 </head>
 
 <body>
 
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top navbar-modern py-3">
     <div class="container">
-        <a class="navbar-brand" href="{{url_for('get_all_posts')}}">Asadullah's Blog</a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-                data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
-                aria-label="Toggle navigation">
-            Menu
-            <i class="fas fa-bars"></i>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('get_all_posts') }}">Home</a>
-                </li>
+      <a class="navbar-brand fw-bold text-dark fs-4" href="{{ url_for('get_all_posts') }}" style="letter-spacing: -0.5px;">
+        Asadullah<span class="text-secondary">.dev</span>
+      </a>
+      <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center gap-1">
+          <li class="nav-item">
+            <a class="nav-link nav-link-modern" href="{{ url_for('get_all_posts') }}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-link-modern" href="{{ url_for('about') }}">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-link-modern" href="{{ url_for('contact') }}">Contact</a>
+          </li>
 
-                <!-- If the user is NOT logged in, show Login and Register options -->
-                {% if not current_user.is_authenticated: %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('login') }}">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('register') }}">Register</a>
-                </li>
-                {% else: %}
-                <!-- If the user IS logged in, hide them and show Log Out instead -->
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('logout') }}">Log Out</a>
-                </li>
-                {% endif %}
-
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('about') }}">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('contact') }}">Contact</a>
-                </li>
-            </ul>
-        </div>
+          <!-- Contextual User Authentication Links -->
+          {% if not current_user.is_authenticated %}
+          <li class="nav-item ms-lg-2">
+            <a class="nav-link nav-link-modern text-dark" href="{{ url_for('login') }}">Login</a>
+          </li>
+          <li class="nav-item ms-lg-1">
+            <a class="btn btn-dark btn-sm rounded-pill px-4 shadow-sm" href="{{ url_for('register') }}" style="font-size: 0.9rem; padding: 0.4rem 1rem;">Register</a>
+          </li>
+          {% else %}
+          <li class="nav-item ms-lg-2">
+            <a class="btn btn-outline-danger btn-sm rounded-pill px-4" href="{{ url_for('logout') }}" style="font-size: 0.9rem; padding: 0.4rem 1rem;">Logout</a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
     </div>
-</nav>
+  </nav>
