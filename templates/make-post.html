@@ -1,38 +1,77 @@
 {% include "header.html" %}
 
 <!-- Workspace Header Banner -->
-<header class="masthead" style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); padding: 120px 0 60px 0;">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-10 mx-auto text-white">
-        <span class="badge bg-warning text-dark rounded-pill px-3 py-2 mb-2 text-uppercase fw-bold" style="letter-spacing: 0.5px;">Admin Console</span>
-        <h1 class="fw-bold display-5">Post Editor</h1>
-        <p class="text-secondary mb-0">Draft or modify your dynamic blog content blocks seamlessly.</p>
-      </div>
+<header class="masthead"
+        style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); padding: 120px 0 60px 0;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 mx-auto text-white">
+                <span class="badge bg-warning text-dark rounded-pill px-3 py-2 mb-2 text-uppercase fw-bold"
+                      style="letter-spacing: 0.5px;">Admin Console</span>
+                <h1 class="fw-bold display-5">Post Editor</h1>
+                <p class="text-secondary mb-0">Draft or modify your dynamic blog content blocks seamlessly.</p>
+            </div>
+        </div>
     </div>
-  </div>
 </header>
 
 <!-- Main Editor Workspace Layout -->
 <div class="container my-5">
-  <div class="row">
-    <div class="col-lg-10 mx-auto">
-      <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 bg-white">
+    <div class="row">
+        <div class="col-lg-10 mx-auto">
+            <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 bg-white">
 
-        <!-- Native CKEditor Script Configuration Setup Requirements -->
-        {{ ckeditor.load() }}
-        {{ ckeditor.config(name='body') }}
+                <!-- Manual Premium Form Build -->
+                <form method="POST" novalidate>
+                    <!-- 1. Global Form CSRF Protection Token -->
+                    {{ form.csrf_token }}
 
-        <!-- WTForms Intake Layer Execution Context -->
-        {% import "bootstrap/wtf.html" as wtf %}
-        <div class="mb-3 custom-editor-form">
-          <!-- We let quick_form handle the <form> tags, csrf_token, and novalidate internally -->
-          {{ wtf.quick_form(form, novalidate=True, button_map={'submit': 'btn btn-dark btn-lg px-5 rounded-pill shadow-sm fw-semibold mt-4'}) }}
+                    <!-- 2. Post Title Input -->
+                    <div class="mb-4">
+                        {{ form.title.label(class="form-label fw-semibold text-secondary small text-uppercase") }}
+                        {{ form.title(class="form-control form-control-lg rounded-3 shadow-none border-light-subtle
+                        bg-light bg-opacity-50", placeholder="Enter post title...") }}
+                        {% for error in form.title.errors %}<span class="text-danger small">{{ error }}</span>{% endfor
+                        %}
+                    </div>
+
+                    <!-- 3. Post Subtitle Input -->
+                    <div class="mb-4">
+                        {{ form.subtitle.label(class="form-label fw-semibold text-secondary small text-uppercase") }}
+                        {{ form.subtitle(class="form-control form-control-lg rounded-3 shadow-none border-light-subtle
+                        bg-light bg-opacity-50", placeholder="Enter post subtitle...") }}
+                        {% for error in form.subtitle.errors %}<span class="text-danger small">{{ error }}</span>{%
+                        endfor %}
+                    </div>
+
+                    <!-- 4. Background Banner Image URL Input -->
+                    <div class="mb-4">
+                        {{ form.img_url.label(class="form-label fw-semibold text-secondary small text-uppercase") }}
+                        {{ form.img_url(class="form-control form-control-lg rounded-3 shadow-none border-light-subtle
+                        bg-light bg-opacity-50", placeholder="https://images.unsplash.com/...") }}
+                        {% for error in form.img_url.errors %}<span class="text-danger small">{{ error }}</span>{%
+                        endfor %}
+                    </div>
+
+                    <!-- 5. Dynamic CKEditor Field Configuration Workspace -->
+                    <div class="mb-4">
+                        {{ form.body.label(class="form-label fw-semibold text-secondary small text-uppercase") }}
+                        {{ form.body() }}
+                        {% for error in form.body.errors %}<span class="text-danger small">{{ error }}</span>{% endfor
+                        %}
+                    </div>
+
+                    <!-- 6. Submit Triggers -->
+                    {{ form.submit(class="btn btn-dark btn-lg px-5 rounded-pill shadow-sm fw-semibold mt-3") }}
+                </form>
+
+                <!-- Inject CKEditor JavaScript Hooks and Bind it directly to our form.body field -->
+                {{ ckeditor.load() }}
+                {{ ckeditor.config(name='body') }}
+
+            </div>
         </div>
-
-      </div>
     </div>
-  </div>
 </div>
 
 <hr class="border-light my-0">
