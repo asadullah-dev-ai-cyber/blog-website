@@ -22,7 +22,9 @@
             <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 bg-white">
 
                 <!-- Manual Premium Form Build -->
-                <form method="POST" novalidate>
+                <!-- FIX: Added onsubmit handler to force CKEditor to sync its textual data -->
+                <form method="POST" novalidate
+                      onsubmit="if(typeof CKEDITOR !== 'undefined'){ for(var instance in CKEDITOR.instances) { CKEDITOR.instances[instance].updateElement(); } }">
                     <!-- 1. Global Form CSRF Protection Token -->
                     {{ form.csrf_token }}
 
@@ -68,7 +70,6 @@
                 <!-- Inject CKEditor JavaScript Hooks and Bind it directly to our form.body field -->
                 {{ ckeditor.load() }}
                 {{ ckeditor.config(name='body') }}
-
             </div>
         </div>
     </div>
