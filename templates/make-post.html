@@ -25,12 +25,10 @@
 
         <!-- WTForms Intake Layer Execution Context -->
         {% import "bootstrap/wtf.html" as wtf %}
-        <form method="POST" novalidate>
-          {{ form.csrf_token }}
-          <div class="mb-3 custom-editor-form">
-            {{ wtf.quick_form(form, button_map={'submit': 'btn btn-dark btn-lg px-5 rounded-pill shadow-sm fw-semibold mt-4'}) }}
-          </div>
-        </form>
+        <div class="mb-3 custom-editor-form">
+          <!-- We let quick_form handle the <form> tags, csrf_token, and novalidate internally -->
+          {{ wtf.quick_form(form, novalidate=True, button_map={'submit': 'btn btn-dark btn-lg px-5 rounded-pill shadow-sm fw-semibold mt-4'}) }}
+        </div>
 
       </div>
     </div>
